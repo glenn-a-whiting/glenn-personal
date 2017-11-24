@@ -5,12 +5,12 @@ function capture(string,str1,str2,callback){
 		str1_indices = [];
 		str2_indices = [];
 		for(var i=0,offset=0;i<string.length;i++){
-			if(string.charAt(i) == str1){
+			if(string.substr(i,str1.length) == str1){
 				if(offset === 0)
-					str1_indices.push(i);
+					str1_indices.push(i+str1.length-1);
 				offset++;
 			}
-			if(string.charAt(i) == str2){
+			if(string.substr(i,str2.length) == str2){
 				offset--;
 				if(offset === 0)
 					str2_indices.push(i);
@@ -21,13 +21,16 @@ function capture(string,str1,str2,callback){
 			for(var s1 = 0, s2 = 0; s1 < str1_indices.length && s2 < str2_indices.length; s1++, s2++){
 				result.push(string.substring(str1_indices[s1]+1,str2_indices[s2]));
 			}
-			callback(result);
+			if(callback)
+				callback(result);
+			else
+				return result;
 		}
 		else{
-			callback("Token count mismatch. \n'"+str1+"': "+String(str1_indices.length)+"\n'"+str2+"': "+String(str2_indices.length));
+			throw new Error("Token count mismatch. \n'"+str1+"': "+String(str1_indices.length)+"\n'"+str2+"': "+String(str2_indices.length));
 		}
 	}
 	else{
-		callback("You must provide two different token characters");
+		throw new Error("You must provide two different token characters");
 	}
-	}
+}

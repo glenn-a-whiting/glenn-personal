@@ -5,38 +5,59 @@
 
 */
 
+var WIDTH = window.self.innerWidth;
+var HEIGHT = window.self.innerHeight;
+
 var stylesheet = document.createElement("STYLE");
 stylesheet.innerHTML = 
+".card{"+
+"	position: absolute;"+
+"	width: inherit;"+
+"	height: inherit;"+
+"}"+
+".cardLeft{"+
+"	left:0px;"+
+"}"+
+".cardRight{"+
+"	right:0px;"+
+"}"+
+"cardUp{"+
+"	top:0px;"+
+"}"+
+"cardDown{"+
+"	down:0px;"+
+"}"+
+""+
 "@keyframes slideout_left {"+
 "	from {right:0px;}"+
-"	to {right:500px;}"+
+"	to {right:"+WIDTH+"px;}"+
 "}"+
 "@keyframes slidein_left {"+
-"	from {right:500px;}"+
+"	from {right:"+WIDTH+"px;}"+
 "	to {right:0px;}"+
 "}"+
 "@keyframes slideout_right {"+
 "	from {left:0px;}"+
-"	to {left:500px;}"+
+"	to {left:"+WIDTH+"px;}"+
 "}"+
 "@keyframes slidein_right {"+
-"	from {left:500px;}"+
+"	from {left:"+WIDTH+"px;}"+
 "	to {left:0px;}"+
 "}"+
 "@keyframes slideout_up {"+
 "	from {bottom:0px;}"+
-"	to {bottom:500px;}"+
+"	to {bottom:"+HEIGHT+"px;}"+
 "}"+
 "@keyframes slidein_up {"+
-"	from {bottom:500px;}"+
+"	from {bottom:"+HEIGHT+"px;}"+
 "	to {bottom:0px;}"+
 "}"+
 "@keyframes slideout_down {"+
 "	from {top:0px;}"+
-"	to {top:500px;}"+
+"	to {top:"+HEIGHT+"px;}"+
 "}"+
 "@keyframes slidein_down {"+
-"	from {top:500px;}"+
+"	from {top:"+HEIGHT+"px;}"+
 "	to {top:0px;}"+
 "}";
 
@@ -44,9 +65,10 @@ document.head.appendChild(stylesheet);
 
 var cardsCount = 0;
 class Cards{
-	constructor(parent,pages){
+	constructor(parent,pages,animation_direction="left"){
 		this.parent = parent;
 		this.pageset = {};
+		//this.parent.style.position = "relative";
 		
 		// Pageset defines elements belonging to the Cards object.
 		// : An object, with each key being either a number or string,
@@ -116,22 +138,55 @@ class Cards{
 			throw "second parameter must be one of: <HTMLElement>, String, Array<<HTMLElement> | String>, Object{String:<HTMLElement>}"
 		}
 		
-		this.styles = {};
+		this.styles;
 		this.active = this.pageset[Object.keys(pages)[0]];
 		Object.keys(this.pageset).forEach(function(pagekey){
-			this.styles[pagekey] = {
-				"active":"slidein_left 1s linear 0s",
-				"inactive":"slideout_left 1s linear 0s"
-			};
-			this.pageset[pagekey].style.animation = this.styles[pagekey].active;
+			switch(animation_direction){
+				case "left":
+					this.styles = {
+						"active":"slidein_left 1s ease-in-out 0s 1 normal forwards running",
+						"inactive":"slideout_left 1s ease-in-out 0s 1 normal forwards running"
+					};
+					this.pageset[pagekey].setAttribute("class","card cardLeft");
+					break;
+				case "right":
+					this.styles = {
+						"active":"slidein_right 1s ease-in-out 0s 1 normal forwards running",
+						"inactive":"slideout_right 1s ease-in-out 0s 1 normal forwards running"
+					};
+					this.pageset[pagekey].setAttribute("class","card cardRight");
+					break;
+				case "up":
+					this.styles = {
+						"active":"slidein_up 1s ease-in-out 0s 1 normal forwards running",
+						"inactive":"slideout_up 1s ease-in-out 0s 1 normal forwards running"
+					};
+					this.pageset[pagekey].setAttribute("class","card cardUp");
+					break;
+				case "down":
+					this.styles = {
+						"active":"slidein_down 1s ease-in-out 0s 1 normal forwards running",
+						"inactive":"slideout_down 1s ease-in-out 0s 1 normal forwards running"
+					};
+					this.pageset[pagekey].setAttribute("class","card cardDown");
+					break;
+				default:
+					this.styles = {
+						"active":"slidein_left 1s ease-in-out 0s 1 normal forwards running",
+						"inactive":"slideout_left 1s ease-in-out 0s 1 normal forwards running"
+					};
+					this.pageset[pagekey].setAttribute("class","card cardLeft");
+					throw "animation direction not one of (left, right, up, down), setting as left by default.";
+					break;
+			}
+			this.pageset[pagekey].style.animation = this.styles.inactive;
 		},this);
+		this.active
 	}
 	
 	setActive(page){
-		var from = this.active;
-		var to = this.pageset[page];
-		
-		from.style.animation = this.styles.inactive;
-		to.style.animation = this.styles.active;
+		this.active.style.animation = this.styles.inactive;
+		this.pageset[page].style.animation = this.styles.active;
+		this.active = this.pageset[page];
 	}
 }

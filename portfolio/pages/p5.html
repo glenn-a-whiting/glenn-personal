@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" media="all" href="../stylesheet.css">
+		<script>
+			HTMLCollection.prototype.map = function(callback){
+				for(var i = 0; i < this.length; i++){
+					callback(this[i], i, this);
+				}
+			}
+			
+			var rate = 0.5;
+			var timing = "ease-in-out";
+			
+			function hideSiblingsOf(elem,d){
+				var e = document.getElementById(d);
+				e.parentElement.children.map(function(sibling,index){
+					sibling.style.animation = "opa_backwards "+rate+"s "+timing+" 0s 1 normal forwards";
+				});
+				e.style.animation = "opa_forwards "+rate+"s "+timing+" 0s 1 normal forwards";
+			}
+		</script>
+	</head>
+	<body>
+		<div id="banner" class="layout">
+		</div>
+		<div id="content" class="layout">
+			<div id="sidebar">
+				<ul>
+					<li class="liButton"><a href="file:///C://users/glenn/documents/resume/website/pages/javascript.html">Javascript</a></li>
+					<li class="liButton"><a href="file:///C://users/glenn/documents/resume/website/pages/p5.html">P5js</a></li>
+				</ul>
+			</div>
+			<div id="notSidebar">
+				<div id="topBar">
+					<div id="horizontal">
+						<ul>
+							<li class="liButton" onclick="hideSiblingsOf(this,'page_1');">one</li>
+							<li class="liButton" onclick="hideSiblingsOf(this,'page_2');">two</li>
+							<li class="liButton" onclick="hideSiblingsOf(this,'page_3');">three</li>
+						</ul>
+					</div>
+				</div>
+				<div id="main" onload="hideSiblingsOf('page_1');">
+					<div class="swappable" id="page_1">
+						Content page __ 1
+						<br><br>
+						<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac scelerisque enim. Suspendisse 
+						<br>ultrices ultrices ipsum, id ultricies diam ultrices at. Aenean mauris turpis, rhoncus posuere 
+						<br>consectetur a, semper eu quam. Vivamus iaculis cursus est sed convallis. Nulla aliquet libero sed 
+						<br>dictum elementum. Aliquam erat volutpat. Nunc cursus vestibulum leo vitae hendrerit. Nam lectus 
+						<br>nisl, imperdiet vel vulputate eget, suscipit eu nibh. 
+					</div>
+					<div class="swappable" id="page_2">
+						Content page _____ 2
+						<br><br>
+						<br>Sed tempus lorem ex, sit amet ultricies neque cursus quis. Praesent eleifend leo ut auctor mollis. 
+						<br>Donec scelerisque cursus velit eu egestas. Integer congue ante ut eros lacinia pellentesque. Integer 
+						<br>pretium ullamcorper nulla, non suscipit dolor elementum sit amet. Suspendisse tincidunt mi at 
+						<br>gravida eleifend. Maecenas auctor ante velit, in lobortis nunc sollicitudin eget. Suspendisse 
+						<br>tristique interdum elit cursus consectetur. Vestibulum ut rutrum metus. Etiam id lorem enim. 
+					</div>
+					<div class="swappable" id="page_3">
+						Content page ________ 3
+						<br><br>
+						<br>Fusce porta, tellus ac scelerisque venenatis, mauris lorem condimentum nunc, a sollicitudin lorem 
+						<br>lectus eget lacus. Donec vitae pharetra orci. Mauris rutrum euismod elit, nec porta lectus viverra 
+						<br>sed. Curabitur rhoncus tempus porta. Nunc vestibulum sapien vitae suscipit venenatis. Ut lacinia 
+						<br>nisi a elit hendrerit consequat. Suspendisse lacinia mi a odio tincidunt malesuada. Suspendisse 
+						<br>hendrerit, nisi nec congue imperdiet, mi massa ultrices dolor, non blandit felis eros vel massa. 
+						<br>Curabitur convallis tempor nulla, nec scelerisque ipsum tempor eu. Quisque id nisl orci. 
+						<br>Pellentesque varius auctor nisl, ac porta diam porttitor in. Etiam placerat tortor elit, viverra 
+						<br>tincidunt lorem cursus ac. Praesent leo purus, sodales a risus ut, congue rhoncus augue. Cras eu 
+						<br>venenatis nulla, at venenatis neque. Sed laoreet venenatis facilisis. 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="layout">
+		</div>
+	</body>
+</html>

@@ -3,7 +3,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <head>
     <meta charset="UTF-8">
-
     <script src="../js/app.js"></script>
     <script src="../js/services.js"></script>
     <script src="../js/controllers.js"></script>
@@ -11,8 +10,8 @@
   <body>
     <div id="main" ng-app="app" ng-controller="sampleCtrl">
       <input ng-model="info" ng-change="assign()">
-      <p>reversed: {{var}}</p>
-      <p>palindrome: {{palindrome}}</p>
+      <p>reversed:{{var}}</p>
+      <p>palindrome:{{palindrome}}</p>
       <p>words:{{wordCount}}</p>
       <p>acronym:{{acronym}}</p>
       <p>The first letter above is:</p>
@@ -43,7 +42,7 @@
         <p ng-switch-when="x">Xray</p>
         <p ng-switch-when="y">Yankee</p>
         <p ng-switch-when="z">Zulu</p>
-        <p ng-switch-default>A non-alphabetical character</p>
+        <p ng-switch-default></p>
       </div>
     </div>
   </body>

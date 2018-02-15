@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="../js/app.js"></script>
+    <script src="../js/services.js"></script>
+    <script src="../js/controllers.js"></script>
+  </head>
+  <body>
+    <div id="main" ng-app="app" ng-controller="sampleCtrl">
+      <input ng-model="info" ng-change="assign()">
+      <p>reversed: {{var}}</p>
+      <p>palindrome: {{palindrome}}</p>
+      <p>words:{{wordCount}}</p>
+      <p>acronym:{{acronym}}</p>
+      <p>The first letter above is:</p>
+      <div ng-switch="info.charAt(0).toLowerCase()">
+        <p ng-switch-when="a">Alpha</p>
+        <p ng-switch-when="b">Bravo</p>
+        <p ng-switch-when="c">Charlie</p>
+        <p ng-switch-when="d">Delta</p>
+        <p ng-switch-when="e">Echo</p>
+        <p ng-switch-when="f">Foxtrot</p>
+        <p ng-switch-when="g">Golf</p>
+        <p ng-switch-when="h">Hotel</p>
+        <p ng-switch-when="i">India</p>
+        <p ng-switch-when="j">Juliett</p>
+        <p ng-switch-when="k">Kilo</p>
+        <p ng-switch-when="l">Lima</p>
+        <p ng-switch-when="m">Mike</p>
+        <p ng-switch-when="n">November</p>
+        <p ng-switch-when="o">Oscar</p>
+        <p ng-switch-when="p">Papa</p>
+        <p ng-switch-when="q">Quebec</p>
+        <p ng-switch-when="r">Romeo</p>
+        <p ng-switch-when="s">Sierra</p>
+        <p ng-switch-when="t">Tango</p>
+        <p ng-switch-when="u">Uniform</p>
+        <p ng-switch-when="v">Victor</p>
+        <p ng-switch-when="w">Whiskey</p>
+        <p ng-switch-when="x">Xray</p>
+        <p ng-switch-when="y">Yankee</p>
+        <p ng-switch-when="z">Zulu</p>
+        <p ng-switch-default>A non-alphabetical character</p>
+      </div>
+    </div>
+  </body>
+</html>

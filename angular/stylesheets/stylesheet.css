@@ -1,0 +1,20 @@
+.fade {
+  transition: 1s linear all;
+  -webkit-transition: 1s linear all;
+}
+
+.fade.ng-enter {
+  color: rgba(0,0,0,0);
+}
+
+.fade.ng-enter.ng-enter-active {
+  color: rgba(0,0,0,0.5);
+}
+
+.face.ng-leave {
+  color: rgba(0,0,0,1);
+}
+
+.fade.ng-leave.ng-leave-active {
+  color: rgba(0,0,0,0.5);
+}
